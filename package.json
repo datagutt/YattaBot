@@ -1,0 +1,11 @@
+{
+	"name": "yattabot",
+	"version": "0.0.1",
+	"author": "datagutt",
+	"keywords": ["irc", "bot"],
+	"description": "",
+	"licenses": [{
+		"type": "MIT",
+		"url": "http://github.com/datagutt/YattaBot/raw/master/LICENSE"
+	}]
+}
