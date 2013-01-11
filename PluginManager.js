@@ -23,20 +23,19 @@ PluginManager.prototype = {
 	},
 	load: function(dir, file){
 		var self = this;
-		console.log(dir, file);
 		self.plugins[file] = require(dir + file)(self.bot);
-		//self.watch(dir + file);
+		//self.watch(dir, file);
 	},
-	reload: function(file){
-		var self = this, 
-			events = self.bot.event.events;
-		self.plugins[file] = require(file)(self.bot);
-	},
-	watch: function(file){
+	reload: function(dir, file){
 		var self = this;
-		Fs.watchFile(file, function(curr, prev) {
+		delete require.cache[dir + file];
+		self.plugins[file] = require(dir + file)(self.bot);
+	},
+	watch: function(dir, file){
+		var self = this;
+		Fs.watchFile(dir + file, function(curr, prev) {
 			if (curr.mtime > prev.mtime) { 
-				self.reload(file);
+				self.reload(dir, file);
 			}
 		});
 	}
