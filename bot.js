@@ -7,7 +7,7 @@ var IRC = new YattaIRC;
 global['USER_LEVEL_NORMAL'] = 0;
 global['USER_LEVEL_MODERATOR'] = 1;
 global['USER_LEVEL_ADMIN'] = 2;
-global['USER_LEVEL_OWNER'] = 2;
+global['USER_LEVEL_OWNER'] = 3;
 var Bot = function(config){
 	var self = this;
 	var session = self.session = IRC.connect(config.server, config.port);
@@ -30,12 +30,12 @@ var Bot = function(config){
 	}
 	
 	self.event = IRC.event;
+	self.UserStorage = self.UserStorage =new Storage('users');
 	
 	CommandManager = self.CommandManager = new CommandManager(self, config.prefix);
 	CommandManager.addListeners();
-	PluginManager = new PluginManager(self);
+	PluginManager = self.PluginManager = new PluginManager(self);
 	PluginManager.loadPlugins(config.plugins || './plugins/');
-	
 };
 Bot.prototype = {
 	on: function(event, callback){
@@ -50,21 +50,38 @@ Bot.prototype = {
 		var self = this;
 		IRC.message(self.session, target, message);
 	},
+	op: function(channel, user){
+		var self = this;
+		IRC.op(self.session, channel, user);
+	},
+	deop: function(channel, user){
+		var self = this;
+		IRC.deop(self.session, channel, user);
+	},
 	join: function(channel){
 		var self = this;
-		IRC.join(channel);
+		IRC.join(self.session, channel);
 	},
 	part: function(channel){
 		var self = this;
-		IRC.part(channel);
+		IRC.part(self.session, channel);
 	},
 	kick: function(channel, user, message){
 		var self = this;
-		IRC.part(channel, user, message);
+		IRC.part(self.session, channel, user, message);
+	},
+	ban: function(channel, user){
+		var self = this;
+		IRC.ban(self.session, channel, user);
 	},
 	addCommand: function(){
 		var self = this;
 		self.CommandManager.addCommand.apply(self.CommandManager, arguments);
+	},
+	getLevel: function(user){
+		var self = this,
+			level = self.UserStorage.get(user).level;
+		return level ? level : USER_LEVEL_NORMAL;
 	}
 };
 module.exports = Bot;

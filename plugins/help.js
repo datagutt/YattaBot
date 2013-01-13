@@ -3,7 +3,6 @@ module.exports = function(bot){
 		var message = '',
 			prefix = bot.CommandManager.prefix;
 			commands = bot.CommandManager.commands;
-		console.log(event);
 		if(event.params && event.params[0]){
 			var name = event.params[0];
 			if(commands && commands[name]){
@@ -15,7 +14,9 @@ module.exports = function(bot){
 			message = 'Available commands: ';
 			for(key in commands){
 				var command = commands[key];
-				message += (prefix + command.name) + ' ';
+				if(bot.getLevel(event.source.nick) >= command.level){
+					message += (prefix + command.name) + ' ';
+				}
 			}
 		}
 		if(message){

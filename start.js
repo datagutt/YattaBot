@@ -9,7 +9,7 @@ var bot = new Bot({
 		'#bbqdroid'
 	],
 	plugins: './plugins/',
-	prefix: '.'
+	prefix: '$'
 });
 process.stdin.resume();
 process.stdin.setEncoding('utf8');

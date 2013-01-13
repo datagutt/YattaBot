@@ -20,14 +20,18 @@ CommandManager.prototype = {
 					params = [];
 				if(event.message.indexOf(command) == 0){
 					console.log(command, commandObj);
-					if(typeof commandObj.callback == 'function'){
-						params = event.message.slice(command.length + 1).split(' ');
-						commandObj.callback.apply(self, [{
-							'target': event.target,
-							'message': event.message,
-							'source': event.source,
-							'params': params
-						}]);
+					if(self.bot.getLevel(event.source.nick) >= commandObj.level){
+						if(typeof commandObj.callback == 'function'){
+							params = event.message.slice(command.length + 1).split(' ');
+							commandObj.callback.apply(self, [{
+								'target': event.target,
+								'message': event.message,
+								'source': event.source,
+								'params': params
+							}]);
+						}
+					}else{
+						self.bot.message(event.target, event.source.nick + ': You are not allowed to execute that command!');
 					}
 				}
 			}
