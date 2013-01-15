@@ -1,8 +1,8 @@
 module.exports = function(bot){
 	bot.on('join', function(event){
 		var nick = event.source.nick, user = bot.UserStorage.get(nick);
-		if(user && user.autoOP && user.level == USER_LEVEL_ADMIN){
-			bot.op(event.target, nick);
+		if(user && user.autoOP && user.level >= USER_LEVEL_ADMIN){
+			bot.op(event.channel, nick);
 		}
 	});
 	bot.addCommand('op', 'Give +o to the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
