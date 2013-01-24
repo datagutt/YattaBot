@@ -14,7 +14,7 @@ module.exports = function(bot){
 			message = 'Available commands: ';
 			for(key in commands){
 				var command = commands[key];
-				if(bot.getLevel(event.source.nick) >= command.level){
+				if(bot.getLevel(event.source.host) >= command.level){
 					message += (prefix + command.name) + ' ';
 				}
 			}

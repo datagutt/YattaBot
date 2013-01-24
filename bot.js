@@ -78,9 +78,9 @@ Bot.prototype = {
 		var self = this;
 		self.CommandManager.addCommand.apply(self.CommandManager, arguments);
 	},
-	getLevel: function(user){
+	getLevel: function(host){
 		var self = this,
-			level = self.UserStorage.get(user).level;
+			level = self.UserStorage.get(host).level;
 		return level ? level : USER_LEVEL_NORMAL;
 	}
 };

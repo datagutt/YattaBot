@@ -1,6 +1,6 @@
 module.exports = function(bot){
 	bot.on('join', function(event){
-		var nick = event.source.nick, user = bot.UserStorage.get(nick);
+		var host = event.source.host, nick = event.source.nick, user = bot.UserStorage.get(host);
 		if(user && user.autoOP && user.level >= USER_LEVEL_ADMIN){
 			bot.op(event.channel, nick);
 		}
@@ -74,7 +74,7 @@ module.exports = function(bot){
 	bot.addCommand('reload', 'Reload all plugins', '', USER_LEVEL_OWNER, false, function(event){
 		bot.PluginManager.loadPlugins('./plugins/');
 	});
-	bot.addCommand('level', 'Get/set/list level of user', '[<user>] [<level>] <autoOP>', USER_LEVEL_OWNER, false, function(event){
+	bot.addCommand('level', 'Get/set/list level of user', '[<host>] [<level>] <autoOP>', USER_LEVEL_NORMAL, false, function(event){
 		var type = event.params[0];
 		switch(type){
 			case 'get':

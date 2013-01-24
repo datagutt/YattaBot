@@ -20,7 +20,7 @@ CommandManager.prototype = {
 					params = [];
 				if(event.message.indexOf(command) == 0){
 					console.log(command, commandObj);
-					if(self.bot.getLevel(event.source.nick) >= commandObj.level){
+					if(self.bot.getLevel(event.source.host) >= commandObj.level){
 						if(typeof commandObj.callback == 'function'){
 							params = event.message.slice(command.length + 1).split(' ');
 							commandObj.callback.apply(self, [{
