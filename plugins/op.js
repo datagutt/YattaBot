@@ -74,7 +74,7 @@ module.exports = function(bot){
 	bot.addCommand('reload', 'Reload all plugins', '', USER_LEVEL_OWNER, false, function(event){
 		bot.PluginManager.loadPlugins('./plugins/');
 	});
-	bot.addCommand('level', 'Get/set/list level of user', '[<host>] [<level>] <autoOP>', USER_LEVEL_NORMAL, false, function(event){
+	bot.addCommand('level', 'Get/set/list level of user', '[<host>] [<level>] <autoOP>', USER_LEVEL_OWNER, false, function(event){
 		var type = event.params[0];
 		switch(type){
 			case 'get':
