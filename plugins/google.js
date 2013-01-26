@@ -32,7 +32,7 @@ module.exports = function(bot){
 			}
 			if(result && result.responseData && result.responseData.results && result.responseData.results[0]){
 				var returned = result.responseData.results[0];
-				message = returned.titleNoFormatting + ' - ' + returned.url;
+				message = returned.titleNoFormatting + ' - ' + decodeURIComponent(returned.url);
 			}else{
 				message = 'No search results returned for that keyword.';
 			}
