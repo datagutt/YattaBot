@@ -74,6 +74,32 @@ module.exports = function(bot){
 	bot.addCommand('reload', 'Reload all plugins', '', USER_LEVEL_OWNER, false, function(event){
 		bot.PluginManager.loadPlugins('./plugins/');
 	});
+	bot.addCommand('config', 'Set/get config', '<plugin.setting> <value>', USER_LEVEL_OWNER, false, function(event){
+		var type = event.params[0];
+		switch(type){
+			case 'set':
+				var arg = event.params[1],
+					value = event.params[2],
+					result;
+				if(arg){
+					result = bot.PluginConfigs.set(arg, value);
+					if(result){
+						bot.message(event.channel, result);
+					}
+				}
+			break;
+			case 'get':
+				var arg = event.params[1],
+					result;
+				if(arg){
+					result = bot.PluginConfigs.get(arg);
+					if(result){
+						bot.message(event.channel, result);
+					}
+				}
+			break;
+		}
+	});
 	bot.addCommand('level', 'Get/set/list level of user', '[<host>] [<level>] <autoOP>', USER_LEVEL_OWNER, false, function(event){
 		var type = event.params[0];
 		switch(type){
