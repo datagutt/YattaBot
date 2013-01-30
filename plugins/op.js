@@ -84,7 +84,7 @@ module.exports = function(bot){
 				if(arg){
 					result = bot.PluginConfigs.set(arg, value);
 					if(result){
-						bot.message(event.channel, result);
+						bot.message(event.source.nick, result);
 					}
 				}
 			break;
@@ -94,7 +94,7 @@ module.exports = function(bot){
 				if(arg){
 					result = bot.PluginConfigs.get(arg);
 					if(result){
-						bot.message(event.channel, result);
+						bot.message(event.source.nick, result);
 					}
 				}
 			break;

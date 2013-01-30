@@ -9,7 +9,6 @@ var evaluate = function(code){
 module.exports = function(bot){
 	bot.addCommand('eval', 'Executes the current code', '<code>', USER_LEVEL_OWNER, false, function(event){
 		var code;
-		console.log(event);
 		if(event.params){
 			code = event.params.join('');
 		}
