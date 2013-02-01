@@ -14,7 +14,7 @@ PluginManager.prototype = {
 			if(exists){
 				var tmpDir = Fs.readdirSync(dir);
 				for(file in tmpDir){
-					if(tmpDir.hasOwnProperty(file)){
+					if(tmpDir.hasOwnProperty(file) && tmpDir[file].indexOf('.js') == tmpDir[file].length - 3){
 						self.load(dir, tmpDir[file]); 
 					}
 				}
