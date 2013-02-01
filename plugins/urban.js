@@ -6,8 +6,11 @@ module.exports = function(bot){
 			if(body){
 				try{
 					var parsed = JSON.parse(body).list[0];
-					console.log(parsed);
-					bot.message(event.target, 'Definition for ' + parsed.word + ': ' + parsed.definition);
+					if(parsed){
+						bot.message(event.target, 'Definition for ' + parsed.word + ': ' + parsed.definition);
+					}else{
+						bot.message(event.target, 'Could not find definition.');
+					}
 				}catch(e){}
 			}
 		});
