@@ -38,5 +38,20 @@ module.exports = function(bot){
 			}
 			bot.message(event.target, message);
 		});
+	});	
+	bot.addCommand('images', 'Find image', '<keyword>', USER_LEVEL_NORMAL, false, function(event){
+		var keyword = '', message = '';
+		if(event.params && event.params[0]){
+			keyword = event.params.join('+');
+		}
+		bot.message(event.target, event.source.nick + ': http://google.com/search?q=' + keyword + '&tbm=isch');
+	});
+	bot.addCommand('tts', 'Generate tts link', '<lang> [<text>]', USER_LEVEL_NORMAL, false, function(event){
+		var lang = '', keyword = '';
+		if(event.params && event.params[0] && event.params[1]){
+			lang = event.params[0];
+			keyword = event.params.slice(1).join('+');
+			bot.message(event.target, event.source.nick + ': http://translate.google.com/translate_tts?ie=utf-8&tl=' + lang + '&q=' + keyword);
+		}
 	});
 };
