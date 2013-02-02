@@ -1,4 +1,4 @@
-var YattaIRC = require('YattaIRC');
+var YattaIRC = require('yattairc');
 var CommandManager = require('./CommandManager');
 var PluginManager = require('./PluginManager')
 var Storage = require('./Storage');
