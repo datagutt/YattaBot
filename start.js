@@ -1,16 +1,7 @@
-var Bot = require('./bot');
-var bot = new Bot({
-	server: 'irc.freenode.net',
-	port: 6667,
-	nick: 'YattaBot',
-	user: 'yatta',
-	realname: 'Hiro Nakamura',
-	channels: [
-		'#bbqdroid'
-	],
-	plugins: './plugins/',
-	prefix: '$'
-});
+var Bot = require('./bot'),
+	fs = require('fs'),
+	config = require('./config.json');
+var bot = new Bot(config);
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', function(msg){

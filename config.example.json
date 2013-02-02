@@ -1,0 +1,12 @@
+{
+	"server": "irc.freenode.net",
+	"port": 6667,
+	"nick:": "YattaBot",
+	"user": "yatta",
+	"realname": "Hiro Nakamura",
+	"channels": [
+		"#bbqdroid"
+	],
+	"plugins": "./plugins/",
+	"prefix": "$"
+}
