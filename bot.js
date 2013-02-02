@@ -25,7 +25,7 @@ var Bot = function(config){
 			});
 		}
 	}
-	if(config.auth && config.auth.user && config.user.pass){
+	if(config.auth && config.auth.user && config.auth.pass){
 		IRC.message(session, 'NickServ', 'IDENTIFY ' + config.auth.user + ' ' + config.auth.pass);
 	}
 	
