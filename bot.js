@@ -11,6 +11,9 @@ global['USER_LEVEL_OWNER'] = 3;
 var Bot = function(config){
 	var self = this;
 	var session = self.session = IRC.connect(config.server, config.port);
+	
+	self.startTime = (new Date).getTime();
+	
 	if(config.nick){
 		self.nick = config.nick;
 		IRC.nick(session, config.nick);
