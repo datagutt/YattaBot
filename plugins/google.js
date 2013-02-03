@@ -33,7 +33,7 @@ module.exports = function(bot){
 			}
 			if(result && result.responseData && result.responseData.results && result.responseData.results[0]){
 				var returned = result.responseData.results[0];
-				message = c.bold(returned.titleNoFormatting) + c.normal(' - ' + decodeURIComponent(returned.url));
+				message = c.bold(returned.titleNoFormatting) + ' - ' + decodeURIComponent(returned.url);
 			}else{
 				message = 'No search results returned for that keyword.';
 			}
