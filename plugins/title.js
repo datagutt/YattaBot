@@ -44,7 +44,7 @@ module.exports = function(bot){
 				});
 				res.on('end', function(){
 					if(body){
-						var match = /<head><title>(.*)<\/title><\/head>/.exec(body), redirected;
+						var match = /<head.*?>.*?<title.*?>(.*?)<\/title>.*?<\/head>/.exec(body.replace(/(\r\n|\n|\r)/gm,'')), redirected;
 						if(match && match[1]){
 							title = match[1];
 							if(title.length <= 0){
@@ -53,7 +53,7 @@ module.exports = function(bot){
 								title = title.substring(0, 100) + '...';
 							}
 							redirected = req.url !== url;
-							bot.message(event.target, '[Link] ' + getHostname(req.url) + (redirected ?  '[redirected]' : '') + ': ' + title);
+							bot.message(event.target, '[Link] ' + getHostname(req.url ? req.url : url) + ' ' + (redirected ?  '[redirected]' : '') + ': ' + title);
 						}
 					}
 				});
