@@ -32,8 +32,8 @@ module.exports = function(bot){
 		}
 		xkcd(num, function(data){
 			if(data){
-				var object = JSON.parse(data);
 				try{
+					var object = JSON.parse(data);
 					bot.message(event.target, object.title + ': ' + object.img + ' (' + object.alt + ')');
 				}catch(e){
 					bot.message(event.target, 'Comic not found.');
