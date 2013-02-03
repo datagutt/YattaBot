@@ -10,7 +10,7 @@ module.exports = function(bot){
 	bot.addCommand('eval', 'Executes the current code', '<code>', USER_LEVEL_OWNER, false, function(event){
 		var code;
 		if(event.params){
-			code = event.params.join('');
+			code = event.params.join(' ');
 		}
 		evaluated = evaluate.apply(this, [code]);
 		result = util.inspect(evaluated);
