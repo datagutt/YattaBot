@@ -24,11 +24,23 @@ module.exports = function(bot){
 	bot.addCommand('twitter', 'Twitter', '<type> <user/status>', USER_LEVEL_NORMAL, false, function(event){
 		var type = event.params[0];
 		switch(type){
+			default:
+				if(event.params && event.params[0]){
+					var user = event.params[0];
+					twitterApi('statuses/user_timeline', user, function(data){
+						var tweet = formatTweet(data[0]);
+						if(tweet){
+							bot.message(event.target, tweet);
+						}else{
+							bot.message(event.target, 'Could not find tweet for: ' + user);
+						}
+					});
+				}
+			break;
 			case 'user':
 				if(event.params && event.params[1]){
 					var user = event.params[1];
 					twitterApi('statuses/user_timeline', user, function(data){
-						console.log(data);
 						var tweet = formatTweet(data[0]);
 						if(tweet){
 							bot.message(event.target, tweet);
