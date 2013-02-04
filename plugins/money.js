@@ -26,7 +26,7 @@ var getRates = function(key, callback){
 module.exports = function(bot){
 	bot.addCommand('money', 'Converts currency', '<value> <from> <to>', USER_LEVEL_NORMAL, false, function(event){
 		if(event.params && event.params[1] && event.params[2]){
-			var value = parseInt(event.params[0]);
+			var value = event.params[0];
 			var from = event.params[1].toUpperCase();
 			var to = event.params[2].toUpperCase();
 			var response;
