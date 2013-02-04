@@ -23,6 +23,7 @@ PluginManager.prototype = {
 	},
 	load: function(dir, file){
 		var self = this;
+		delete require.cache[dir + file];
 		self.plugins[file] = require(dir + file)(self.bot);
 		//self.watch(dir, file);
 	},
