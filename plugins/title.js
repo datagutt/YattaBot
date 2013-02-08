@@ -3,9 +3,8 @@ var getHostname = function(str){
 	var re = new RegExp('^(?:f|ht)tp(?:s)?\://([^/]+)', 'im');
 	return str.match(re)[1].toString();
 };
-module.exports = function(bot){
-	bot.on('privmsg', function(event){
-		if(match = event.message.match(/\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?]))/i)){
+var checkForLinks = function(event, bot){
+	if(match = event.message.match(/\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?]))/i)){
 			var url = match[0], title;
 			if(!url){
 				return;
@@ -57,6 +56,20 @@ module.exports = function(bot){
 						}
 					}
 				});
+			});
+		}
+};
+module.exports = function(bot){
+	bot.on('privmsg', function(event){
+		var validChannels = bot.PluginConfigs.get('title.channels');
+		if(validChannels){
+			validChannels = validChannels.split(',');
+		}
+		if(validChannels){
+			validChannels.forEach(function(channel){
+				if(event.target == channel){
+					checkForLinks(event, bot);
+				}
 			});
 		}
 	});
