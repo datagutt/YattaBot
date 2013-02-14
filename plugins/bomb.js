@@ -109,7 +109,7 @@ module.exports = function(bot){
 			return;
 		}
 		if(event.source.nick == challenged){
-			if(event.message.toLowerCase() == color.toLowerCase() || (event.message == '42' && bot.getLevel(event.source.host) >= USER_LEVEL_MODERATOR)){
+			if(event.message.toUpperCase() == color || (event.message == '42' && bot.getLevel(event.source.host) >= USER_LEVEL_MODERATOR)){
 				disarm(bot);
 			}else{
 				bot.message(channel, 'Wrong wire!');
