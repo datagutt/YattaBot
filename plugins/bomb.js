@@ -1,47 +1,4 @@
-var colors = [
-	'red',
-	'green',
-	'blue',
-	'yellow',
-	'orange',
-	'purple',
-	'brown',
-	'white',
-	'black',
-	'grey',
-	'aqua',
-	'azure',
-	'beige',
-	'chocolate',
-	'crimson',
-	'cyan',
-	'fuschia',
-	'gold',
-	'indigo',
-	'ivory',
-	'khaki',
-	'lavender',
-	'lime',
-	'linen',
-	'magenta',
-	'maroon',
-	'navy',
-	'olive',
-	'orchid',
-	'peru',
-	'pink',
-	'plum',
-	'salmon',
-	'sienna',
-	'silver',
-	'snow',
-	'tan',
-	'teal',
-	'tomato',
-	'turquoise',
-	'violet',
-	'wheat'
-];
+var colors = ['RED', 'GREEN', 'BLUE', 'YELLOW', 'ORANGE', 'PURPLE', 'BROWN', 'WHITE', 'BLACK', 'GREY', 'AQUA', 'AZURE', 'BEIGE', 'CHOCOLATE', 'CRIMSON', 'CYAN', 'FUSCHIA', 'GOLD', 'INDIGO', 'IVORY', 'KHAKI', 'LAVENDER', 'LIME', 'LINEN', 'MAGENTA', 'MAROON', 'NAVY', 'OLIVE', 'ORCHID', 'PERU', 'PINK', 'PLUM', 'SALMON', 'SIENNA', 'SILVER', 'SNOW', 'TAN', 'TEAL', 'TOMATO', 'TURQUOISE', 'VIOLET', 'WHEAT'];
 var easyColors = colors.slice(0, 3),
 	mediumColors = colors.slice(0, 5),
 	hardColors = colors.slice(0, 10),
@@ -152,7 +109,7 @@ module.exports = function(bot){
 			return;
 		}
 		if(event.source.nick == challenged){
-			if(event.message == color || (event.message == '42' && bot.getLevel(event.source.host) >= USER_LEVEL_MODERATOR)){
+			if(event.message.toLowerCase() == color.toLowerCase() || (event.message == '42' && bot.getLevel(event.source.host) >= USER_LEVEL_MODERATOR)){
 				disarm(bot);
 			}else{
 				bot.message(channel, 'Wrong wire!');
