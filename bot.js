@@ -52,7 +52,7 @@ Bot.prototype = {
 	},
 	message: function(target, message){
 		var self = this;
-		IRC.message(self.session, target, message);
+		IRC.message(self.session, target, message || '');
 	},
 	op: function(channel, user){
 		var self = this;

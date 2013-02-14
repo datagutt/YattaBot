@@ -21,7 +21,7 @@ var formatTweet = function(tweet){
 	return out;
 };
 module.exports = function(bot){
-	bot.addCommand('twitter', 'Twitter', '<type> <user/status>', USER_LEVEL_NORMAL, false, function(event){
+	bot.addCommand('twitter', 'Twitter', '<type> <user/status>', USER_LEVEL_NORMAL, 'twitter', false, function(event){
 		var type = event.params[0];
 		switch(type){
 			default:

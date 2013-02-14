@@ -1,10 +1,52 @@
 var colors = [
 	'red',
-	'blue',
 	'green',
+	'blue',
+	'yellow',
 	'orange',
-	'brown'
+	'purple',
+	'brown',
+	'white',
+	'black',
+	'grey',
+	'aqua',
+	'azure',
+	'beige',
+	'chocolate',
+	'crimson',
+	'cyan',
+	'fuschia',
+	'gold',
+	'indigo',
+	'ivory',
+	'khaki',
+	'lavender',
+	'lime',
+	'linen',
+	'magenta',
+	'maroon',
+	'navy',
+	'olive',
+	'orchid',
+	'peru',
+	'pink',
+	'plum',
+	'salmon',
+	'sienna',
+	'silver',
+	'snow',
+	'tan',
+	'teal',
+	'tomato',
+	'turquoise',
+	'violet',
+	'wheat'
 ];
+var easyColors = colors.slice(0, 3),
+	mediumColors = colors.slice(0, 5),
+	hardColors = colors.slice(0, 10),
+	deathColors = colors;
+var bombColors;
 var countdown;
 var challenged = '';
 var channel = '';
@@ -17,6 +59,7 @@ var explode = function(bot){
 		bot.ban(channel, challenged);
 	}
 	bot.kick(channel, challenged, 'You failed to disarm the bomb! Correct wire was ' + color);
+	bombColors = easyColors;
 	challenged = '';
 	channel = '';
 	isNuclear = false;
@@ -24,6 +67,7 @@ var explode = function(bot){
 };
 var disarm = function(bot){
 	bot.message(channel, 'Correct wire! Bomb disarmed.');
+	bombColors = easyColors;
 	challenged = '';
 	channel = '';
 	isNuclear = false;
@@ -40,14 +84,13 @@ var bomb = function(bot, event, nuclear){
 	}
 	challenged = event.params[0];
 	channel = event.target;
-	color = colors[Math.floor(Math.random()*(colors.length-1))];
-	bot.message(channel, challenged + ', you have been challenged!');
-	bot.message(event.target, 'Answer (' + colors.join(', ') + ') before time runs out!');
+	color = bombColors[Math.floor(Math.random()*(colors.length-1))];
+	bot.message(channel, challenged + ': you have been challenged! Choose which wire to cut (' + bombColors.join(', ') + ') before time runs out!');
 	countdown = setInterval(function(){
 		bot.message(event.target, timer);
 		timer--;
-		if(timer < 0){
-			explode();
+		if(timer <= 0){
+			explode(bot);
 		}
 	}, 1000);
 };
@@ -56,11 +99,49 @@ var nuclearBomb = function(bot, event){
 };
 module.exports = function(bot){
 	bot.addCommand('bomb', '<user>', 'Bombs a user', USER_LEVEL_ADMIN, false, function(event){
+		bombColors = easyColors;
+		switch(event.params[1]){
+			case 'easy':
+			case '1':
+				bombColors = easyColors;
+			break;
+			case 'medium':
+			case '2':
+				bombColors = mediumColors;
+			break;
+			case 'hard':
+			case '3':
+				bombColors = hardColors;
+			break;
+			case 'death':
+			case '9':
+				bombColors = deathColors;
+			break;
+		}
 		if(event.params[0] !== ''){
 			bomb(bot, event);
 		}
 	});
-	bot.addCommand('nuclearbomb', '<user>', 'Bombs a user', false, USER_LEVEL_ADMIN, function(event){
+	bot.addCommand('nuclearbomb', '<user>', 'Bombs a user', USER_LEVEL_ADMIN, false, function(event){
+		bombColors = easyColors;
+		switch(event.params[1]){
+			case 'easy':
+			case '1':
+				bombColors = easyColors;
+			break;
+			case 'medium':
+			case '2':
+				bombColors = mediumColors;
+			break;
+			case 'hard':
+			case '3':
+				bombColors = hardColors;
+			break;
+			case 'death':
+			case '9':
+				bombColors = deathColors;
+			break;
+		}
 		if(event.params[0] !== ''){
 			nuclearBomb(bot, event);
 		}
