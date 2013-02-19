@@ -76,7 +76,11 @@ module.exports = function(bot){
 			break;
 		}
 		if(event.params[0] !== ''){
-			bomb(bot, event);
+			if(event.params[0].toLowerCase() !== bot.nick.toLowerCase()){
+				bomb(bot, event);
+			}else{
+				bot.kick(event.target, event.source.nick, 'NOU');
+			}
 		}
 	});
 	bot.addCommand('nuclearbomb', '<user>', 'Bombs a user', USER_LEVEL_ADMIN, false, function(event){
@@ -100,7 +104,12 @@ module.exports = function(bot){
 			break;
 		}
 		if(event.params[0] !== ''){
-			nuclearBomb(bot, event);
+		console.log(bot.nick);
+			if(event.params[0].toLowerCase() !== bot.nick.toLowerCase()){
+				nuclearBomb(bot, event);
+			}else{
+				bot.kick(event.target, event.source.nick, 'NOU');
+			}
 		}
 	});
 	bot.on('privmsg', function(event){

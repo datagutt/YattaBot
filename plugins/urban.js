@@ -7,7 +7,8 @@ module.exports = function(bot){
 				try{
 					var parsed = JSON.parse(body).list[0];
 					if(parsed){
-						bot.message(event.target, 'Definition for ' + parsed.word + ': ' + parsed.definition);
+						console.log(parsed.definition.length );
+						bot.message(event.target, 'Definition for ' + parsed.word + ': ' + parsed.definition.substring(0, 800));
 					}else{
 						bot.message(event.target, 'Could not find definition.');
 					}
