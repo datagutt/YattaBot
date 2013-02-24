@@ -41,7 +41,7 @@ var bomb = function(bot, event, nuclear){
 	}
 	challenged = event.params[0];
 	channel = event.target;
-	color = bombColors[Math.floor(Math.random()*(colors.length-1))];
+	color = bombColors[Math.floor(Math.random()*(bombColors.length-1))];
 	bot.message(channel, challenged + ': you have been challenged! Choose which wire to cut (' + bombColors.join(', ') + ') before time runs out!');
 	countdown = setInterval(function(){
 		bot.message(event.target, timer);
@@ -121,7 +121,7 @@ module.exports = function(bot){
 			if(event.message.toUpperCase() == color || (event.message == '42' && bot.getLevel(event.source.host) >= USER_LEVEL_MODERATOR)){
 				disarm(bot);
 			}else{
-				bot.message(channel, 'Wrong wire!');
+				bot.message(channel, event.source.nick + ': Wrong wire!');
 				explode(bot);
 			}
 		}
@@ -129,6 +129,7 @@ module.exports = function(bot){
 	bot.on('nick', function(event){
 		if(event.source.nick == challenged) {
 			challenged = event.source.nick;
+			bot.message(event.target, event.source.nick + ': Nice try. You can not hide from the bomb!');
 		}
 	});
 }
