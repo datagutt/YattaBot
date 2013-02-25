@@ -21,7 +21,8 @@ CommandManager.prototype = {
 				if(commandObj = commands[command]){
 					if(self.bot.getLevel(event.source.host) >= commandObj.level){
 						if(typeof commandObj.callback == 'function'){
-							params = event.message.slice(command.length + 1).split(' ');
+							params = split.slice(1);
+							console.log(event.params);
 							commandObj.callback.apply(self, [{
 								'target': event.target,
 								'message': event.message,
