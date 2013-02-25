@@ -14,12 +14,11 @@ CommandManager.prototype = {
 		var self = this,
 			commands = self.commands;
 		self.bot.event.on('privmsg', function(event){
-			for(key in commands){
-				var command = self.prefix + key,
-					commandObj = commands[key],
-					params = [];
-				if(event.message.indexOf(command) == 0){
-					console.log(command, commandObj);
+			var params = [];
+			if(event.message.indexOf(self.prefix) == 0){
+				var split = event.message.split(' ');
+				command = split[0].substring(self.prefix.length).toLowerCase();	
+				if(commandObj = commands[command]){
 					if(self.bot.getLevel(event.source.host) >= commandObj.level){
 						if(typeof commandObj.callback == 'function'){
 							params = event.message.slice(command.length + 1).split(' ');
@@ -33,8 +32,11 @@ CommandManager.prototype = {
 					}else{
 						self.bot.message(event.target, event.source.nick + ': You are not allowed to execute that command!');
 					}
+				}else{
+					self.bot.message(event.target, event.source.nick + ': Command does not exist!');
 				}
 			}
+			
 		});
 	}
 }
