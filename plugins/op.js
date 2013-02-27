@@ -39,7 +39,7 @@ module.exports = function(bot){
 	});
 	bot.addCommand('kick', 'Kicks the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
 		var nick = '';
-		if(event.params && event.params[0]){
+		if(event.params && event.params[0] && event.params[0] !== bot.nick){
 			nick = event.params[0];
 		}else{
 			nick = event.source.nick;
@@ -48,7 +48,7 @@ module.exports = function(bot){
 	});
 	bot.addCommand('ban', 'Bans the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
 		var nick = '';
-		if(event.params && event.params[0]){
+		if(event.params && event.params[0] && event.params[0] !== bot.nick){
 			nick = event.params[0];
 		}else{
 			nick = event.source.nick;
@@ -63,6 +63,24 @@ module.exports = function(bot){
 			nick = event.source.nick;
 		}
 		bot.raw('MODE ' + event.target + ' -b ' + nick);
+	});	
+	bot.addCommand('voice', 'Voices the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
+		var nick = '';
+		if(event.params && event.params[0]){
+			nick = event.params[0];
+		}else{
+			nick = event.source.nick;
+		}
+		bot.raw('MODE ' + event.target + ' +v ' + nick);
+	});
+	bot.addCommand('unvoice', 'Unvoices the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
+		var nick = '';
+		if(event.params && event.params[0]){
+			nick = event.params[0];
+		}else{
+			nick = event.source.nick;
+		}
+		bot.raw('MODE ' + event.target + ' -v ' + nick);
 	});
 	bot.addCommand('prefix', 'Change the prefix of the bot', '[<prefix>]', USER_LEVEL_OWNER, false, function(event){
 		var prefix = '!';
