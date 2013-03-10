@@ -20,13 +20,13 @@ module.exports = function(bot){
 						if(geocode && geocode.status && geocode.status !== STATUS_OK){
 							switch(geocode.status){
 								case STATUS_NO_RESULTS:
-								bot.message(event.target, event.source.nick + ': No geodata found for request')
+									bot.message(event.target, event.source.nick + ': No geodata found for request');
 								break;
 								case STATUS_OVER_LIMIT:
-								bot.message(event.target, event.source.nick + ': Geocode api over limit')
+									bot.message(event.target, event.source.nick + ': Geocode api over limit');
 								break;
 								default:
-									bot.message(event.target, event.source.nick + ': Error fetching geodata')
+									bot.message(event.target, event.source.nick + ': Error fetching geodata');
 								break;
 							}
 						}
