@@ -67,6 +67,9 @@ var languages = {
 };
 var getCode = function(language, languages){
 	var code, lang;
+	if(!language){
+		return;
+	}
 	for(code in languages){
 		lang = languages[code];
 		if(lang.toLowerCase() === language.toLowerCase()){
