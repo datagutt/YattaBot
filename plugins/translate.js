@@ -98,7 +98,7 @@ module.exports = function(bot){
 						language = languages[parsed[2]];
 					parsed = parsed[0] && parsed[0][0] && parsed[0][0][0];
 					if(parsed && languages[to]){
-						bot.message(event.target, event.source.nick + ': The ' + language + ' ' + keyword.replace('+', '') + ' translates as ' + parsed + ' in ' + languages[to]);
+						bot.message(event.target, event.source.nick + ': ' + parsed);
 					}else{
 						bot.message(event.target, event.source.nick + ': Could not find translation.');
 					}
