@@ -3,7 +3,7 @@ module.exports = function(bot){
 	bot.addCommand('weather', 'Find weather for location', '<location>', USER_LEVEL_NORMAL, false, function(event){
 		var data;
 		if(event.params && event.params[0]){
-			request('http://www.worldweatheronline.com/feed/weather.ashx?key=' + bot.PluginConfigs.get('time.apikey') + '&q=' + event.params.join('+') + '&num_of_days=0&format=json', function(error, response, body){
+			request('http://api.worldweatheronline.com/free/v1/weather.ashx?key=' + bot.PluginConfigs.get('time.apikey') + '&q=' + event.params.join('+') + '&format=json', function(error, response, body){
 				try{
 					data = JSON.parse(body).data;
 				}catch(e){
