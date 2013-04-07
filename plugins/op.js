@@ -74,9 +74,19 @@ module.exports = function(bot){
 	bot.addCommand('reload', 'Reload plugin(s)', '', USER_LEVEL_OWNER, false, function(event){
 		var plugin = event.params[0];
 		if(plugin){
-			bot.PluginManager.load('./plugins/' + plugin + '.js');
+			try{
+				bot.PluginManager.load('./plugins/' + plugin + '.js');
+				bot.message(event.target, event.source.nick + ': Plugin "' + plugin + '" reloaded.');
+			}catch(e){
+				bot.message(event.target, event.source.nick + ': Could not reload plugin.');
+			}
 		}else{
-			bot.PluginManager.loadPlugins('./plugins/');
+			try{
+				bot.PluginManager.loadPlugins('./plugins/');
+				bot.message(event.target, event.source.nick + ': Plugins reloaded.');
+			}catch(e){
+				bot.message(event.target, event.source.nick + ': Could not reload plugins.');
+			}
 		}
 	});
 	bot.addCommand('config', 'Set/get config', '<plugin.setting> <value>', USER_LEVEL_OWNER, false, function(event){
