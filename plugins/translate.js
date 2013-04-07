@@ -78,9 +78,12 @@ var getCode = function(language, languages){
 	}
 };
 module.exports = function(bot){
-	bot.addCommand('translate', 'Translate', '[<from>] [<to>]', USER_LEVEL_NORMAL, false, function(event){
+	bot.addCommand('translate', 'Translate', '[<from>] [<to>] [<keywords]', USER_LEVEL_NORMAL, false, function(event){
 		var keyword = event.params.slice(2).join('+'),
 			to, from;
+		if(event.params.length < 1){
+			bot.message(event.target,  event.source.nick + ': ' + '[<from>] [<to>] [<keywords]');
+		}
 		if(event.params[0] !== ''){
 			from = getCode(event.params[0], languages);
 		}else{
@@ -102,7 +105,12 @@ module.exports = function(bot){
 					}else{
 						bot.message(event.target, event.source.nick + ': Could not find translation.');
 					}
-				}catch(e){}
+				}catch(e){
+					bot.message(event.target, event.source.nick + ': ' + e.toString());
+				}
+			}else{
+				console.log(error);
+				bot.message(event.target, event.source.nick + ': Could not contact server.');
 			}
 		});
 	});
