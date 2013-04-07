@@ -75,14 +75,14 @@ module.exports = function(bot){
 		var plugin = event.params[0];
 		if(plugin){
 			try{
-				bot.PluginManager.load('./plugins/', plugin + '.js');
+				bot.PluginManager.reload('./plugins/', plugin + '.js');
 				bot.message(event.target, event.source.nick + ': Plugin "' + plugin + '" reloaded.');
 			}catch(e){
 				bot.message(event.target, event.source.nick + ': Could not reload plugin.');
 			}
 		}else{
 			try{
-				bot.PluginManager.loadPlugins('./plugins/');
+				bot.PluginManager.reloadPlugins('./plugins/');
 				bot.message(event.target, event.source.nick + ': Plugins reloaded.');
 			}catch(e){
 				bot.message(event.target, event.source.nick + ': Could not reload plugins.');

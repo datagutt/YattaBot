@@ -57,7 +57,7 @@ var checkForLinks = function(event, bot){
 							}else if(title.length > 100){
 								title = title.substring(0, 100) + '...';
 							}
-							redirected = req.url !== url;
+							redirected = req.url && req.url !== url;
 							bot.message(event.target, '[Link] ' + getHostname(req.url ? req.url : url) + ' ' + (redirected ?  '[redirected]' : '') + ': ' + title);
 						}
 					}
