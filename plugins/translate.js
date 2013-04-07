@@ -82,7 +82,7 @@ module.exports = function(bot){
 		var keyword = event.params.slice(2).join('+'),
 			to, from;
 		if(event.params.length < 1){
-			bot.message(event.target,  event.source.nick + ': ' + bot.config.prefix + 'translate ' + '[<from>] [<to>] [<keywords]');
+			bot.message(event.target,  event.source.nick + ': ' + bot.CommandManager.prefix + 'translate ' + '[<from>] [<to>] [<keywords]');
 			return;
 		}
 		if(event.params[0] !== ''){
