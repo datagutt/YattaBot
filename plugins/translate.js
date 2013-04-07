@@ -82,7 +82,8 @@ module.exports = function(bot){
 		var keyword = event.params.slice(2).join('+'),
 			to, from;
 		if(event.params.length < 1){
-			bot.message(event.target,  event.source.nick + ': ' + '[<from>] [<to>] [<keywords]');
+			bot.message(event.target,  event.source.nick + ': ' + bot.config.prefix + 'translate ' + '[<from>] [<to>] [<keywords]');
+			return;
 		}
 		if(event.params[0] !== ''){
 			from = getCode(event.params[0], languages);
@@ -94,7 +95,7 @@ module.exports = function(bot){
 		}else{
 			to = 'en';
 		}
-		request('https://translate.google.com/translate_a/t?client=t&hl=en&multires=1&sc=1&sl=' + from + '&ssel=0&tl=' + to + '&tsel=0&uptl=en&text=' + keyword, function(error, response, body){
+		request('http://translate.google.com/translate_a/t?client=t&hl=en&multires=1&sc=1&sl=' + from + '&ssel=0&tl=' + to + '&tsel=0&uptl=en&text=' + keyword, function(error, response, body){
 			if(body){
 				try{
 					var parsed = eval(body),
@@ -105,9 +106,7 @@ module.exports = function(bot){
 					}else{
 						bot.message(event.target, event.source.nick + ': Could not find translation.');
 					}
-				}catch(e){
-					bot.message(event.target, event.source.nick + ': ' + e.toString());
-				}
+				}catch(e){}
 			}else{
 				console.log(error);
 				bot.message(event.target, event.source.nick + ': Could not contact server.');
