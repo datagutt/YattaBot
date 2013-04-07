@@ -71,8 +71,13 @@ module.exports = function(bot){
 		}
 		bot.CommandManager.prefix = prefix;
 	});
-	bot.addCommand('reload', 'Reload all plugins', '', USER_LEVEL_OWNER, false, function(event){
-		bot.PluginManager.loadPlugins('./plugins/');
+	bot.addCommand('reload', 'Reload plugin(s)', '', USER_LEVEL_OWNER, false, function(event){
+		var plugin = event.params[0];
+		if(plugin){
+			bot.PluginManager.load('./plugins/' + plugin + '.js');
+		}else{
+			bot.PluginManager.loadPlugins('./plugins/');
+		}
 	});
 	bot.addCommand('config', 'Set/get config', '<plugin.setting> <value>', USER_LEVEL_OWNER, false, function(event){
 		var type = event.params[0];

@@ -33,8 +33,8 @@ var Bot = function(config){
 	}
 	
 	self.event = IRC.event;
-	self.UserStorage = self.UserStorage =new Storage('users');
-	self.PluginConfigs = self.PluginConfigs =new Storage('pluginconfigs');
+	self.UserStorage = self.UserStorage = new Storage('users');
+	self.PluginConfigs = self.PluginConfigs = new Storage('pluginconfigs');
 	
 	CommandManager = self.CommandManager = new CommandManager(self, config.prefix);
 	CommandManager.addListeners();

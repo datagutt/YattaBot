@@ -1,4 +1,5 @@
-var Fs = require('fs');
+var Fs = require('fs'),
+	path = require('path');
 var PluginManager = function(bot){
 	var self = this;
 	self.plugins = {};
@@ -23,20 +24,15 @@ PluginManager.prototype = {
 	},
 	load: function(dir, file){
 		var self = this;
-		delete require.cache[dir + file];
+		delete require.cache[path.resolve(__dirname + '/plugins/', file)];
 		self.plugins[file] = require(dir + file)(self.bot);
 		//self.watch(dir, file);
-	},
-	reload: function(dir, file){
-		var self = this;
-		delete require.cache[dir + file];
-		self.plugins[file] = require(dir + file)(self.bot);
 	},
 	watch: function(dir, file){
 		var self = this;
 		Fs.watchFile(dir + file, function(curr, prev) {
 			if (curr.mtime > prev.mtime) { 
-				self.reload(dir, file);
+				self.load(dir, file);
 			}
 		});
 	}
