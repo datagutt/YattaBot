@@ -19,7 +19,7 @@ console.log('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=
 module.exports = function(bot){
 	var apikey = bot.PluginConfigs.get('lastfm.apikey'), user;
 	
-	bot.addCommand('np', 'Show what the user is playing on last.fm', '<user>', USER_LEVEL_OWNER, true, function(event){
+	bot.addCommand('np', 'Show what the user is playing on last.fm', '<user>', USER_LEVEL_NORMAL, true, function(event){
 		if(event.params[0]){
 			user = event.params[0];
 		}else{
@@ -28,7 +28,7 @@ module.exports = function(bot){
 		nowplaying(user, apikey, bot, event);
 	});
 	
-	bot.addCommand('lastfm', 'Show what the user is playing on last.fm', '<user>', USER_LEVEL_OWNER, false, function(event){
+	bot.addCommand('lastfm', 'Show what the user is playing on last.fm', '<user>', USER_LEVEL_NORMAL, false, function(event){
 		if(event.params[0]){
 			user = event.params[0];
 		}else{
