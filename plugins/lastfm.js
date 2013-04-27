@@ -1,6 +1,5 @@
 var request = require('request');
 var nowplaying = function(user, apikey, bot, event){
-console.log('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + user + '&api_key=' + apikey + '&format=json');
 	request('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + user + '&api_key=' + apikey + '&format=json', function(error, response, body){
 		console.log(body);
 		var message = 'Could not get now playing data for ' + user + '.';
