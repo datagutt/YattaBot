@@ -78,6 +78,10 @@ Bot.prototype = {
 		var self = this;
 		IRC.ban(self.session, channel, user);
 	},
+	nick: function(channel, nick){
+		var self = this;
+		IRC.nick(self.session, nick);
+	},
 	addCommand: function(){
 		var self = this;
 		self.CommandManager.addCommand.apply(self.CommandManager, arguments);
