@@ -94,7 +94,7 @@ module.exports = function(bot){
 		if(event.params && event.params[0]){
 			nick = event.params[0];
 		}
-		bot.nick(event.target, nick);
+		bot.nick(nick);
 	});
 	bot.addCommand('reload', 'Reload plugin(s)', '', USER_LEVEL_OWNER, false, function(event){
 		var plugin = event.params[0];

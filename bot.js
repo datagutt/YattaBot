@@ -78,7 +78,7 @@ Bot.prototype = {
 		var self = this;
 		IRC.ban(self.session, channel, user);
 	},
-	nick: function(channel, nick){
+	nick: function(nick){
 		var self = this;
 		IRC.nick(self.session, nick);
 	},
