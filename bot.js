@@ -15,7 +15,6 @@ var Bot = function(config){
 	self.startTime = (new Date).getTime();
 	
 	if(config.nick){
-		self.nick = config.nick;
 		IRC.nick(session, config.nick);
 	}
 	if(config.user && config.realname){
@@ -33,6 +32,7 @@ var Bot = function(config){
 	}
 	
 	self.event = IRC.event;
+	self.config = config;
 	self.UserStorage = self.UserStorage = new Storage('users');
 	self.PluginConfigs = self.PluginConfigs = new Storage('pluginconfigs');
 	

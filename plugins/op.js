@@ -90,7 +90,7 @@ module.exports = function(bot){
 		bot.CommandManager.prefix = prefix;
 	});
 	bot.addCommand('nick', 'Changes nick of bot', '<nick>', USER_LEVEL_OWNER, false, function(event){
-		var nick = bot.nick;
+		var nick = bot.config.nick;
 		if(event.params && event.params[0]){
 			nick = event.params[0];
 		}
