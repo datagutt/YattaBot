@@ -64,12 +64,37 @@ module.exports = function(bot){
 		}
 		bot.raw('MODE ' + event.target + ' -b ' + nick);
 	});
+	bot.addCommand('voice', 'Voices the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
+		var nick = '';
+		if(event.params && event.params[0]){
+			nick = event.params[0];
+		}else{
+			nick = event.source.nick;
+		}
+		bot.raw('MODE ' + event.target + ' +v ' + nick);
+	});
+	bot.addCommand('unvoice', 'Unvoices the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
+		var nick = '';
+		if(event.params && event.params[0]){
+			nick = event.params[0];
+		}else{
+			nick = event.source.nick;
+		}
+		bot.raw('MODE ' + event.target + ' -v ' + nick);
+	});
 	bot.addCommand('prefix', 'Change the prefix of the bot', '[<prefix>]', USER_LEVEL_OWNER, false, function(event){
 		var prefix = '!';
 		if(event.params && event.params[0]){
 			prefix = event.params[0];
 		}
 		bot.CommandManager.prefix = prefix;
+	});
+	bot.addCommand('nick', 'Changes nick of bot', '<nick>', USER_LEVEL_OWNER, false, function(event){
+		var nick = bot.nick;
+		if(event.params && event.params[0]){
+			nick = event.params[0];
+		}
+		bot.nick(event.target, nick);
 	});
 	bot.addCommand('reload', 'Reload plugin(s)', '', USER_LEVEL_OWNER, false, function(event){
 		var plugin = event.params[0];
