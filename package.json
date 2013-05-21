@@ -6,14 +6,12 @@
 		"yattairc": ">= 0.x.x",
 		"cookie": ">= 0.x.x",
 		"follow-redirects": ">= 0.x.x",
-		"fs": ">= 0.x.x",
 		"geoip": ">= 0.x.x",
 		"irc-colors": ">= 0.x.x",
 		"memory-cache": ">= 0.x.x",
 		"path": ">= 0.x.x",
 		"request": ">= 0.x.x",
-		"xml2js": ">= 0.x.x",
-		"http": ">= 0.x.x"
+		"xml2js": ">= 0.x.x"
 	},
 	"keywords": ["irc", "bot"],
 	"description": "",
