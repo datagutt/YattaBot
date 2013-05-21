@@ -31,7 +31,7 @@ PluginManager.prototype = {
 			if(exists){
 				var tmpDir = Fs.readdirSync(dir);
 				self.bot.CommandManager.commands = {};
-				self.bot.event.events.length = 2;
+				self.bot.event.events.length = 3;
 				for(file in tmpDir){
 					if(tmpDir.hasOwnProperty(file) && tmpDir[file].indexOf('.js') == tmpDir[file].length - 3){
 						self.reload(dir, tmpDir[file]); 
