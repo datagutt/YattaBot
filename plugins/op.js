@@ -1,4 +1,7 @@
 module.exports = function(bot){
+	bot.addCommand('test', 'test', '<channel>', USER_LEVEL_OWNER, true, function(event){
+		console.log(bot.test(event.params[0]));
+	});
 	bot.on('join', function(event){
 		var host = event.source.host, nick = event.source.nick, user = bot.UserStorage.get(host);
 		if(user && user.autoOP && user.level >= USER_LEVEL_ADMIN){

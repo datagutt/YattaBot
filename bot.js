@@ -90,6 +90,10 @@ Bot.prototype = {
 		var self = this,
 			level = self.UserStorage.get(host).level;
 		return level ? level : USER_LEVEL_NORMAL;
+	},
+	test: function(channel){
+		var tmp = IRC.servers[0].getChannel(channel);
+		console.log(tmp.getUsers(), tmp.topic, tmp.getTopicSetBy(), tmp.getTopicSetAt());
 	}
 };
 module.exports = Bot;
