@@ -20,16 +20,18 @@ var Bot = function(config){
 	if(config.user && config.realname){
 		IRC.user(session, config.user, 8, config.realname);
 	}
-	if(channels = config.channels){
-		if(typeof channels == 'object'){
-			channels.forEach(function(channel){
-				IRC.join(session, channel);
-			});
+	IRC.servers[session].socket.on('connect', function(){
+		if(channels = config.channels){
+			if(typeof channels == 'object'){
+				channels.forEach(function(channel){
+					IRC.join(session, channel);
+				});
+			}
 		}
-	}
-	if(config.auth && config.auth.user && config.auth.pass){
-		IRC.message(session, 'NickServ', 'IDENTIFY ' + config.auth.user + ' ' + config.auth.pass);
-	}
+		if(config.auth && config.auth.user && config.auth.pass){
+			IRC.message(session, 'NickServ', 'IDENTIFY ' + config.auth.user + ' ' + config.auth.pass);
+		}
+	});
 	
 	self.event = IRC.event;
 	self.config = config;
