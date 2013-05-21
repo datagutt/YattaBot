@@ -12,7 +12,7 @@
 		"memory-cache": ">= 0.x.x",
 		"path": ">= 0.x.x",
 		"request": ">= 0.x.x",
-		"xmlj2": ">= 0.x.x",
+		"xml2js": ">= 0.x.x",
 		"http": ">= 0.x.x"
 	},
 	"keywords": ["irc", "bot"],
