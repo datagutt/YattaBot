@@ -74,7 +74,7 @@ Bot.prototype = {
 	},
 	kick: function(channel, user, message){
 		var self = this;
-		IRC.kick(self.session, channel, user, message || user);
+		IRC.kick(self.session, channel, user, message);
 	},
 	ban: function(channel, user){
 		var self = this;

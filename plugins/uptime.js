@@ -23,6 +23,6 @@ var parse = function(uptime){
 module.exports = function(bot){
 	bot.addCommand('uptime', 'Shows bot uptime', '', USER_LEVEL_NORMAL, false, function(event){
 		var time = (new Date().getTime() - bot.startTime) / 1000;
-		bot.message(event.target, event.source.nick + ': ' + parse(time));
+		bot.message(event.target, event.source.nick + ': Current bot uptime: ' + parse(time));
 	});
 };

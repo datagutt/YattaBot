@@ -40,32 +40,52 @@ module.exports = function(bot){
 			bot.part(channel);
 		}
 	});
-	bot.addCommand('kick', 'Kicks the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
-		var nick = '';
+	bot.addCommand('kick', 'Kicks the user', '<user> <channel> [<message>]', USER_LEVEL_ADMIN, false, function(event){
+		var nick = '', channel = '', message = '';
 		if(event.params && event.params[0]){
 			nick = event.params[0];
 		}else{
 			nick = event.source.nick;
 		}
-		bot.kick(event.target, nick);
+		if(event.params && event.params[1]){
+			channel = event.params[1];
+		}else{
+			channel = event.target;
+		}
+		if(event.params && event.params.length > 1){
+			message = event.params.slice(2).join('');
+		}else{
+			message = 'Kindergarten is elsewhere.';
+		}
+		bot.kick(channel, nick, message);
 	});
-	bot.addCommand('ban', 'Bans the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
-		var nick = '';
+	bot.addCommand('ban', 'Bans the user', '<user> <channel>', USER_LEVEL_ADMIN, false, function(event){
+		var nick = '', channel = '';
 		if(event.params && event.params[0]){
 			nick = event.params[0];
 		}else{
 			nick = event.source.nick;
 		}
-		bot.ban(event.target, nick);
+		if(event.params && event.params[1]){
+			channel = event.params[1];
+		}else{
+			channel = event.target;
+		}
+		bot.ban(channel, nick);
 	});
-	bot.addCommand('unban', 'Unbans the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
-		var nick = '';
+	bot.addCommand('unban', 'Unbans the user', '<user> <channel>', USER_LEVEL_ADMIN, false, function(event){
+		var nick = '', channel = '';
 		if(event.params && event.params[0]){
 			nick = event.params[0];
 		}else{
 			nick = event.source.nick;
 		}
-		bot.raw('MODE ' + event.target + ' -b ' + nick);
+		if(event.params && event.params[1]){
+			channel = event.params[1];
+		}else{
+			channel = event.target;
+		}
+		bot.raw('MODE ' + channel + ' -b ' + nick);
 	});
 	bot.addCommand('voice', 'Voices the user', '<user>', USER_LEVEL_ADMIN, false, function(event){
 		var nick = '';
