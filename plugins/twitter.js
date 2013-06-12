@@ -1,15 +1,20 @@
-var request = require('request');
+var util = require('util'),
+	twitter = require('twitter-api').createClient();
+var consumerKey = '',
+	consumerSec = '';
 var twitterApi = function(api, action, callback){
-	request('http://api.twitter.com/1/' + api + '/' + encodeURIComponent(action) + '.json', function(error, response, body){
-		var data;
-		try{
-			data = JSON.parse(body);
-		}catch(e){
-			data = {};
+	twitter.fetchBearerToken(function(bearer, raw, status){
+		if(!bearer){
+			return;
 		}
-		if(typeof callback == 'function'){
-			callback(data);
-		}
+		twitter.setAuth(bearer);
+		twitter.get(api, action, function(data){
+			if(data && typeof callback == 'function'){
+				callback(data);
+			}
+			twitter.setAuth(consumerKey, consumerSec)
+			twitter.invalidateBearerToken(bearer);
+		});
 	});
 };
 var formatTweet = function(tweet){
@@ -21,13 +26,22 @@ var formatTweet = function(tweet){
 	return out;
 };
 module.exports = function(bot){
+	consumerKey = bot.PluginConfigs.get('twitter.consumerkey');
+	consumerSec = bot.PluginConfigs.get('twitter.consumersec');
+	if(!consumerKey || !consumerSec){
+		return;
+	}
+	twitter.setAuth(
+		consumerKey,
+		consumerSec
+	);
 	bot.addCommand('twitter', 'Twitter', '<type> <user/status>', USER_LEVEL_NORMAL, false, function(event){
 		var type = event.params[0];
 		switch(type){
 			default:
 				if(event.params && event.params[0]){
 					var user = event.params[0];
-					twitterApi('statuses/user_timeline', user, function(data){
+					twitterApi('statuses/user_timeline', {screen_name: user}, function(data){
 						var tweet = formatTweet(data[0]);
 						if(tweet){
 							bot.message(event.target, tweet);
@@ -40,7 +54,7 @@ module.exports = function(bot){
 			case 'user':
 				if(event.params && event.params[1]){
 					var user = event.params[1];
-					twitterApi('statuses/user_timeline', user, function(data){
+					twitterApi('statuses/user_timeline', {screen_name: user}, function(data){
 						var tweet = formatTweet(data[0]);
 						if(tweet){
 							bot.message(event.target, tweet);
@@ -53,8 +67,7 @@ module.exports = function(bot){
 			case 'status':
 				if(event.params && event.params[1]){
 					var status = event.params[1];
-					twitterApi('statuses/show', status, function(data){
-						console.log(data);
+					twitterApi('statuses/show/'+ status, function(data){
 						var tweet = formatTweet(data);
 						if(tweet){
 							bot.message(event.target, tweet);
